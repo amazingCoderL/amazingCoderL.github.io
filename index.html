@@ -352,6 +352,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/28/gitlearnnoteone/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/28/gitlearnnoteone/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -375,182 +386,16 @@
       
         
           
-            <h2 id="git基本介绍"><a href="#git基本介绍" class="headerlink" title="git基本介绍"></a>git基本介绍</h2><h6 id="1-git是什么"><a href="#1-git是什么" class="headerlink" title="1. git是什么"></a>1. git是什么</h6><p>git是一种分布式版本控制系统，并且是当前世界最流行，最先进的版本控制系统;所谓版本控制通俗讲就是git会帮你记录你的项目本次改动的记录,详细的定义不在此多介绍，零基础同学可以参考<a href="https://www.liaoxuefeng.com" target="_blank" rel="external">廖雪峰老师的教程</a>。</p>
-<h6 id="2-git与svn的区别"><a href="#2-git与svn的区别" class="headerlink" title="2. git与svn的区别"></a>2. git与svn的区别</h6><p>大家知道git是一种分布式版本控制系统，svn是集中式，到底对用户来说有什么区别呢？</p>
-<p>所谓集中式就是你所做的事情都集中在一个地方，也就是中央仓库，你要干活之前必须先从中央仓库获取你的项目，然后再自己的电脑干活，干完之后又推送到中央仓库,这样的话如果没有网或者或者中央服务器挂了你就没法工作了，这是集中式版本控制最大的缺点：无法单机，太过于依赖中央仓库。</p>
-<p>什么是分布式，首先分布式没有中央仓库一说，每一台电脑都是自己的“中央仓库”，即只要你有一台电脑就能进行版本控制了，这样在没有网络的情况下，或者远程仓库挂了也不影响你的开发工作。</p>
-<p>有人可能疑惑分布式的远程仓库和集中式的中央仓库不是一样吗？按功能来说确实一样，都是一个外网或者局域网的管理项目的服务器，但分布式的远程仓库只是用来共享项目的一个服务，没有它你同样可以进行版本控制，只是多人并行开发会受影响。</p>
-<p>当然上面所述的优点只是git概念上的优势，在使用上git还有很强大的分支管理能力。</p>
-<h2 id="git的基本使用"><a href="#git的基本使用" class="headerlink" title="git的基本使用"></a>git的基本使用</h2><h4 id="git常用名词介绍"><a href="#git常用名词介绍" class="headerlink" title="git常用名词介绍"></a>git常用名词介绍</h4><ul>
-<li>本地仓库:个人电脑使用git初始化后的本地项目版本控制仓库(.git文件夹下)</li>
-<li>远程仓库:外网服务器或局域网服务器存放项目代码的仓库，可进行多人开发代码同步共享</li>
-<li>工作区:工作区通俗讲就是个人电脑硬盘里项目存放的文件夹（被git初始化过）</li>
-<li>暂存区:暂存区是git仓库里提供的一种新的区域(stage),暂存区通俗说就是工作区add和git库commit过程的一个中介区域，要想完成代码的commit操作，必须先将工作区内容add到暂存区才能commit，反过来说commit其实是提交的暂存区的修改，这个概念很重要。</li>
-<li>分支:初始化git库时会默认生成一个master，这就是一个分支</li>
-</ul>
-<h4 id="图形化界面使用"><a href="#图形化界面使用" class="headerlink" title="图形化界面使用"></a>图形化界面使用</h4><p>本人用的Mac，之前一直使用SourceTree软件来管理项目,后来由于项目需要（其实是可以装逼），决定学习用命令行来实现项目的版本控制。介绍SourceTree的使用前先说说平时开发中最常用的git版本控制操作流程:</p>
-<ul>
-<li>克隆项目到本地</li>
-<li>功能开发，bug修改</li>
-<li>改动代码放入暂存区</li>
-<li>提交代码到git本地库</li>
-<li>拉取远程仓库代码同步(可能存在代码冲突)</li>
-<li>推送本地git库代码至远程仓库<br>sourceTree的安装使用:<ul>
-<li>下载安装转件到电脑，Mac<a href="https://www.sourcetreeapp.com" target="_blank" rel="external">下载地址</a></li>
-<li>安装完成后你可以先设置你的远程仓库账号</li>
-<li>最简单的使用场景：从github上克隆一份开源项目到我的电脑，如下图点击<center><img src="http://otzihtq40.bkt.clouddn.com/2-1.png" alt="SourceTree入口界面"></center><br>  进入如下界面输入远程项目地址，Sourcetree会自动生成本地保存地址，当然你也可以自己修改<br><center><img src="http://otzihtq40.bkt.clouddn.com/2-2.png" alt="远程仓库克隆界面"></center><br>  下载完成进入SourceTree主界面<br><center><img src="http://otzihtq40.bkt.clouddn.com/2-3.png" alt="SourceTree主界面"></center></li>
-<li>在主界面我们就可以进行版本控制的工作了    ,抓取（拉取）远程代码,将未暂存文件勾选到已暂存文件区,填写commit message,提交，推送。</li>
-<li>sourceTree的其他操作，比如创建分支，标签，版本回退等，界面使用不是本文重点。</li>
-</ul>
-</li>
-</ul>
-<h4 id="git命令行基本使用"><a href="#git命令行基本使用" class="headerlink" title="git命令行基本使用"></a>git命令行基本使用</h4><h6 id="1-创建git仓库："><a href="#1-创建git仓库：" class="headerlink" title="1. 创建git仓库："></a>1. 创建git仓库：</h6><pre><code>$ mkdir gittest
- $ cd gittest
- $ git init
- Initialized empty Git repository in /Users/hao/gittest/.git/
-</code></pre><p>这时在gittest目录下会生成.git目录，git仓库就穿件成功了。</p>
-<h6 id="2-修改内容提交到git本地仓库-git-add-git-commit-m-“commit-message”"><a href="#2-修改内容提交到git本地仓库-git-add-git-commit-m-“commit-message”" class="headerlink" title="2. 修改内容提交到git本地仓库 git add/git commit -m “commit message”"></a>2. 修改内容提交到git本地仓库 git add/git commit -m “commit message”</h6><pre><code>$ git add readme.txt
-$ git commit -m &quot;abc commit&quot;
-[master (root-commit) b50ea8f] abc commit
- 1 file changed, 1 insertion(+)
- create mode 100644 readme.txt
-</code></pre><h6 id="3-查看当前分支的状态-git-status"><a href="#3-查看当前分支的状态-git-status" class="headerlink" title="3. 查看当前分支的状态 git status"></a>3. 查看当前分支的状态 git status</h6><pre><code>$ git status
-On branch master
-Initial commit
-Untracked files:
-  (use &quot;git add &lt;file&gt;...&quot; to include in what will be     committed)
-
-readme.txt
-
-nothing added to commit but untracked files present (use     &quot;git add&quot; to track)
-</code></pre><p>这时可以看到提示readme.txt文本未提交更改</p>
-<h6 id="4-查看修改文件的内容-git-diff-filename"><a href="#4-查看修改文件的内容-git-diff-filename" class="headerlink" title="4. 查看修改文件的内容 git diff [filename]"></a>4. 查看修改文件的内容 git diff [filename]</h6><pre><code>$ git diff readme.txt
-diff --git a/readme.txt b/readme.txt
-index f2ba8f8..0c00383 100644
---- a/readme.txt
-+++ b/readme.txt
-@@ -1 +1 @@
--abc
-\ No newline at end of file
-+def
-\ No newline at end of file
-</code></pre><p>从上面信息可以看出我将readme.txt的内容从abc修改为def,再次提交修改的文件到仓库</p>
-<pre><code>$ git add readme.txt
-$ git commit -m &quot;def commit&quot;
-[master 306ecb9] def commit
- 1 file changed, 1 insertion(+), 1 deletion(-)
-</code></pre><p>查看分支状态</p>
-<pre><code>$ git status
-On branch master
-nothing to commit, working directory clean
-</code></pre><p>此时工作区没有可提交修改了。</p>
-<h6 id="5-查看版本信息-git-log-（追加–pretty-oneline查看简单信息）"><a href="#5-查看版本信息-git-log-（追加–pretty-oneline查看简单信息）" class="headerlink" title="5. 查看版本信息 git log （追加–pretty=oneline查看简单信息）"></a>5. 查看版本信息 git log （追加–pretty=oneline查看简单信息）</h6><pre><code>$ git log
-commit 306ecb90b1232474de9ed62a73dcadb2f63e8bab
-Author: xxx &lt;xxxxxxxxxxx@163.com&gt;
-Date:   Mon Jul 31 11:04:39 2017 +0800
-
-def commit
-
-commit b50ea8fe8418a16f2e90e7551411e2478b0953b7
-Author: xxx &lt;xxxxxxxxxxx@163.com&gt;
-Date:   Mon Jul 31 10:30:39 2017 +0800
-
-abc commit
-
-$ git log --pretty=oneline
-306ecb90b1232474de9ed62a73dcadb2f63e8bab def commit
-b50ea8fe8418a16f2e90e7551411e2478b0953b7 abc commit
-</code></pre><p>上面的打印信息中commit后字符串为版本号，相当于一个版本的唯一识别码,和svn不一样，git的版本号不是一个有序的号码,通过log信息可以看到我总共提交了两次修改，现在一个产品妹子跑过来告诉你上次的需求不要了，这时我想回退到第一次提交怎么办？</p>
-<h6 id="6-版本回退操作git-reset-–hard-HEAD-HEAD-10"><a href="#6-版本回退操作git-reset-–hard-HEAD-HEAD-10" class="headerlink" title="6. 版本回退操作git reset –hard [HEAD^|HEAD~10]"></a>6. 版本回退操作git reset –hard [HEAD^|HEAD~10]</h6><p>中括号内为你需要回退到哪个版本，如上一个版本HEAD^,上上个版本HEAD^^,网上第十个版本HEAD~10.</p>
-<pre><code>$ git reset --hard HEAD^
-HEAD is now at b50ea8f abc commit
-</code></pre><p>查看版本信息</p>
-<pre><code>$ git log
-commit b50ea8fe8418a16f2e90e7551411e2478b0953b7
-Author: xxx &lt;xxxxxxxxxxx@163.com&gt;
-Date:   Mon Jul 31 10:30:39 2017 +0800
-
-abc commit
-</code></pre><p>可以看到当前版本只有第一次提交的版本,这时那个妹子又来了，告诉你刚刚说的那个需求还是加上吧</p>
-<p><center><img src="http://otzihtq40.bkt.clouddn.com/3-1.png" alt=""></center><br>这时如果只有几行代码你当然可以再写一遍，但是如果有上千行代码 你是不是要崩溃了，不急，我们能回到过去，也能穿越未来。找到刚刚提交def的commit id，</p>
-<pre><code>$ git reset --hard 306ecb
-HEAD is now at 306ecb9 def commit
-liuhaodeMacBook-Pro:gittest hao$ git log
-commit 306ecb90b1232474de9ed62a73dcadb2f63e8bab
-Author: xxx &lt;xxxxxxxxxxx@163.com&gt;
-Date:   Mon Jul 31 11:04:39 2017 +0800
-
-def commit
-
-commit b50ea8fe8418a16f2e90e7551411e2478b0953b7
-Author: xxx &lt;xxxxxxxxxxx@163.com&gt;
-Date:   Mon Jul 31 10:30:39 2017 +0800
-
-abc commit
-</code></pre><p>commit id可以不写全也可以,如果刚刚你把终端关了或者电脑重启了无法找到提交def的commit id怎么办，可以这样：</p>
-<pre><code>$ git reflog
-306ecb9 HEAD@{0}: reset: moving to 306ecb
-b50ea8f HEAD@{1}: reset: moving to HEAD^
-306ecb9 HEAD@{2}: commit: def commit
-b50ea8f HEAD@{3}: commit (initial): abc commit
-</code></pre><p>此时你可以看到你的每次操作记录，也可以查看每一次的commit id了。</p>
-<h6 id="7-撤销修改操作-git-checkout-–-filename"><a href="#7-撤销修改操作-git-checkout-–-filename" class="headerlink" title="7. 撤销修改操作 git checkout –[filename]"></a>7. 撤销修改操作 git checkout –[filename]</h6><p>我现在对readme.txt添加了一句话，执行：</p>
-<pre><code>$ git status
-On branch master
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in     working directory)
-
-modified:   readme.txt
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit     -a&quot;)
-</code></pre><p>此时提示有修改的内容未提交，项目开发时如果代码写一般发现有更好的设计思路，这时如果我改了上千行代码或者修改了好几个类想撤销了，可以这样操作</p>
-<pre><code>$ git diff HEAD -- readme.txt
-diff --git a/readme.txt b/readme.txt
-index 0c00383..cd4d08a 100644
---- a/readme.txt
-+++ b/readme.txt
-@@ -1 +1,2 @@
--def
-\ No newline at end of file
-+def
-+我修改了readme
-\ No newline at end of file
-</code></pre><p>此时可以看到readme.txt文件的修改内容，然后撤销此次修改</p>
-<pre><code>$ git checkout -- readme.txt
-$ git diff HEAD -- readme.txt
-</code></pre><p>执行玩这两句发现没有任何提示，这说明撤销操作成功了，并且此时工作区的readme.txt文件和git仓库的文件没有区别.<br>如果此时我添加的这句修改已经被我手贱add到了暂存区，这时想撤销怎么操作,这时可以用上面介绍的git reset：</p>
-<pre><code>$ git add readme.txt
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-modified:   readme.txt
-
-$ git reset HEAD readme.txt
-Unstaged changes after reset:
-M    readme.txt
-$ git status
-On branch master
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in     working directory)
-
-modified:   readme.txt
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit     -a&quot;)
-</code></pre><p>从提示可以看到我把add到暂存区的修改撤销回了工作区。</p>
-<h6 id="8-文件删除"><a href="#8-文件删除" class="headerlink" title="8. 文件删除"></a>8. 文件删除</h6><p>工作区文件删除</p>
-<pre><code>$ rm readme.txt
-</code></pre><p>git仓库文件删除,此时删除后需执行git commit -m “delete readme.txt”</p>
-<pre><code>$ git rm readme.txt
-$ gti commit -m &quot;delete readme.txt&quot;
-</code></pre><p>文件误删恢复文件操作</p>
-<pre><code>$ git checkout -- readme.txt
-</code></pre><p>本节git的是永久介绍到这，说太多看的会吐，下节继续讲git的远程仓库和分支管理等知识。</p>
-
-          
+          git基本介绍1. git是什么git是一种分布式版本控制系统，并且是当前世界最流行，最先进的版本控制系统;所谓版本控制通俗讲就是git会帮你记录你的项目本次改动的记录,详细的定义不在此多介绍，零基础同学可以参考廖雪峰老师的教程。
+2. git与svn的区别大家知道git是一种分布式版本控制系统，s
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/28/gitlearnnoteone/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -659,6 +504,17 @@ $ gti commit -m &quot;delete readme.txt&quot;
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/27/Rxjavastudy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/27/Rxjavastudy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -682,90 +538,25 @@ $ gti commit -m &quot;delete readme.txt&quot;
       
         
           
-            <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li>异步</li>
-<li>简洁（代码逻辑简洁），链式调用</li>
-</ol>
-<h3 id="RxJava的观察者模式"><a href="#RxJava的观察者模式" class="headerlink" title="RxJava的观察者模式"></a>RxJava的观察者模式</h3><ol>
-<li>Observable(被观察者)</li>
-<li>Observer(观察者)</li>
-<li>subscribe(订阅)</li>
-<li>Event(事件)：<ul>
-<li>包括onNext(),onCompleted(),onError()</li>
-<li>onCompleted()指事件队列完结，即不会有新的onNext()发出时触发</li>
-<li>onError()事件处理异常，事件队列终止</li>
-</ul>
-</li>
-</ol>
-<h3 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h3><h6 id="一-创建Observer"><a href="#一-创建Observer" class="headerlink" title="一. 创建Observer"></a>一. 创建Observer</h6><ol>
-<li><p>代码实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Observer&lt;String&gt; observer = new Observer&lt;String&gt;() &#123;</div><div class="line">	</div><div class="line">	@Override</div><div class="line">   	public void onNext(String s) &#123;</div><div class="line">       	Log.d(tag, &quot;Item: &quot; + s);</div><div class="line">   	&#125;      	    </div><div class="line">   		</div><div class="line">   	@Override</div><div class="line">   	public void onCompleted() &#123;</div><div class="line">       	Log.d(tag, &quot;Completed!&quot;);</div><div class="line">   	&#125;</div><div class="line">   	   </div><div class="line">   	@Override</div><div class="line">   	public void onError(Throwable e) &#123;</div><div class="line">       	Log.d(tag, &quot;Error!&quot;);</div><div class="line"> 	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Subscribe实现</p>
-<p> 实现自Observer的抽象类，实现方法与Observer一样，Subscribe的不同点：</p>
-<ul>
-<li>onStart():事件还未发送前调用，做一些初始化操作。</li>
-<li>unsubscribe():取消订阅调用，s事件队列完成后必须做unsubscribe()操作，防止内存泄露。</li>
-</ul>
-</li>
-</ol>
-<h6 id="二-创建Observable"><a href="#二-创建Observable" class="headerlink" title="二. 创建Observable"></a>二. 创建Observable</h6><ol>
-<li><p>代码实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">	Observable observable = Observable.create(new Observable.OnSubscribe&lt;String&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    public void call(Subscriber&lt;? super String&gt; subscriber) &#123;</div><div class="line">        subscriber.onNext(&quot;Hello&quot;);</div><div class="line">        subscriber.onNext(&quot;Hi&quot;);</div><div class="line">        subscriber.onNext(&quot;Aloha&quot;);</div><div class="line">        subscriber.onCompleted();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p> <strong>一定要理解这句话:</strong></p>
-<pre><code>OnSubscribe 会被存储在返回的 Observable 对象中，它的作用相当于一个计划表，当 Observable 被订阅的时候，OnSubscribe 的 call() 方法会自动被调用
-</code></pre></li>
-<li><p>其他实现方式</p>
-<ul>
-<li>just(T…): 将传入的参数依次发送出来。</li>
-<li>from(T[]) / from(Iterable&lt;? extends T&gt;) : 将传入的数组或 Iterable 拆分成具体对象后，依次发送出来。</li>
-</ul>
-</li>
-</ol>
-<h6 id="三-Subscribe-订阅"><a href="#三-Subscribe-订阅" class="headerlink" title="三. Subscribe(订阅)"></a>三. Subscribe(订阅)</h6><ol>
-<li><p>代码实现</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">observable.subscribe(subscriber);</div></pre></td></tr></table></figure>
-<p> 注意代码实现方式，被观察者订阅观察者的实现顺序。</p>
-</li>
-<li><p>订阅做了哪些事</p>
-<ul>
-<li>调用 Subscriber.onStart() 。</li>
-<li>调用 Observable 中的 OnSubscribe.call(Subscriber) 。</li>
-<li>将传入的 Subscriber 作为 Subscription 返回。</li>
-</ul>
-</li>
-<li><p>Action0()和Action1()实现不完整定义回调</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">Action1&lt;String&gt; onNextAction = new Action1&lt;String&gt;() &#123;</div><div class="line">   	// onNext()</div><div class="line">   	@Override</div><div class="line">   	public void call(String s) &#123;</div><div class="line">       	Log.d(tag, s);</div><div class="line">   	&#125;</div><div class="line">&#125;;</div><div class="line">Action1&lt;Throwable&gt; onErrorAction = new Action1&lt;Throwable&gt;() 	&#123;</div><div class="line">   	// onError()</div><div class="line">   	@Override</div><div class="line">   	public void call(Throwable throwable) &#123;</div><div class="line">       	// Error handling</div><div class="line">   	&#125;</div><div class="line">&#125;;</div><div class="line">Action0 onCompletedAction = new Action0() &#123;</div><div class="line">   	// onCompleted()</div><div class="line">   	@Override</div><div class="line">   	public void call() &#123;</div><div class="line">       	Log.d(tag, &quot;completed&quot;);</div><div class="line">  		&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()</div><div class="line">observable.subscribe(onNextAction);</div><div class="line">// 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来	定义 onNext() 和 onError()</div><div class="line">observable.subscribe(onNextAction, onErrorAction);</div><div class="line">// 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 	onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()</div><div class="line">observable.subscribe(onNextAction, onErrorAction, 	onCompletedAction);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="线程控制–-Scheduler-一"><a href="#线程控制–-Scheduler-一" class="headerlink" title="线程控制– Scheduler(一)"></a>线程控制– Scheduler(一)</h3><ol>
-<li><p>Scheduler的API使用场景</p>
-<ul>
-<li>Schedulers.immediate():默认Schedulers，不指定线程；</li>
-<li>Schedulers.newThread():开启新线程</li>
-<li>Schedulers.io():开启I/O操作，其实是开启无数量上限的线程池</li>
-<li>Schedulers.computation():开启固定的线程池</li>
-</ul>
-</li>
-<li><p>控制线程API</p>
-<ul>
-<li>subscribeOn():控制事件订阅线程    </li>
-<li>observeOn():控制事件消费的线程</li>
-</ul>
-</li>
-</ol>
-<h3 id="线程控制–-Scheduler-二"><a href="#线程控制–-Scheduler-二" class="headerlink" title="线程控制– Scheduler(二)"></a>线程控制– Scheduler(二)</h3><pre><code>线程切换的原理
-</code></pre><h3 id="事件序列变换"><a href="#事件序列变换" class="headerlink" title="事件序列变换"></a>事件序列变换</h3><ol>
-<li>变换定义：就是将事件序列中的对象或整个序列进行加工处理，转换成不同的事件或事件序列。</li>
-<li>变换API:<ul>
-<li>map():一对一变换。</li>
-<li>flatMap():一对多或多对多变换。</li>
-</ul>
-</li>
-<li>变换原理</li>
-</ol>
+          特点
+异步
+简洁（代码逻辑简洁），链式调用
 
-          
+RxJava的观察者模式
+Observable(被观察者)
+Observer(观察者)
+subscribe(订阅)
+Event(事件)：
+包括onNext(),onCompleted(),onError()
+onCompleted()指事件队列完结，即不
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/27/Rxjavastudy/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1044,6 +835,14 @@ $ gti commit -m &quot;delete readme.txt&quot;
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
 
   
 
