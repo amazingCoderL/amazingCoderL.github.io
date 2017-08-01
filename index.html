@@ -54,17 +54,35 @@
   
 
   
+    
+      
+    
 
-  
-
+    
   
 
   
 
   
     
+      
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -348,7 +366,7 @@
 <li>推送本地git库代码至远程仓库<br>sourceTree的安装使用:<ul>
 <li>下载安装转件到电脑，Mac<a href="https://www.sourcetreeapp.com" target="_blank" rel="external">下载地址</a></li>
 <li>安装完成后你可以先设置你的远程仓库账号</li>
-<li>最简单的使用场景：从github上克隆一份开源项目到我的电脑，如下图点击<center><img src="/28/gitlearnnoteone/images/2-1.png" alt="SourceTree入口界面"></center><br>  进入如下界面输入远程项目地址，Sourcetree会自动生成本地保存地址，当然你也可以自己修改<br><center><img src="/28/gitlearnnoteone/images/2-2.png" alt="远程仓库克隆界面"></center><br>  下载完成进入SourceTree主界面<br><center><img src="/28/gitlearnnoteone/images/2-3.png" alt="SourceTree主界面"></center></li>
+<li>最简单的使用场景：从github上克隆一份开源项目到我的电脑，如下图点击<center><img src="http://otzihtq40.bkt.clouddn.com/2-1.png" alt="SourceTree入口界面"></center><br>  进入如下界面输入远程项目地址，Sourcetree会自动生成本地保存地址，当然你也可以自己修改<br><center><img src="http://otzihtq40.bkt.clouddn.com/2-2.png" alt="远程仓库克隆界面"></center><br>  下载完成进入SourceTree主界面<br><center><img src="http://otzihtq40.bkt.clouddn.com/2-3.png" alt="SourceTree主界面"></center></li>
 <li>在主界面我们就可以进行版本控制的工作了    ,抓取（拉取）远程代码,将未暂存文件勾选到已暂存文件区,填写commit message,提交，推送。</li>
 <li>sourceTree的其他操作，比如创建分支，标签，版本回退等，界面使用不是本文重点。</li>
 </ul>
@@ -422,7 +440,7 @@ Date:   Mon Jul 31 10:30:39 2017 +0800
 
 abc commit
 </code></pre><p>可以看到当前版本只有第一次提交的版本,这时那个妹子又来了，告诉你刚刚说的那个需求还是加上吧</p>
-<p><center><img src="/28/gitlearnnoteone/images/3-1.png" alt="图1"></center><br>这时如果只有几行代码你当然可以再写一遍，但是如果有上千行代码 你是不是要崩溃了，不急，我们能回到过去，也能穿越未来。找到刚刚提交def的commit id，</p>
+<p><center><img src="http://otzihtq40.bkt.clouddn.com/3-1.png" alt=""></center><br>这时如果只有几行代码你当然可以再写一遍，但是如果有上千行代码 你是不是要崩溃了，不急，我们能回到过去，也能穿越未来。找到刚刚提交def的commit id，</p>
 <pre><code>$ git reset --hard 306ecb
 HEAD is now at 306ecb9 def commit
 liuhaodeMacBook-Pro:gittest hao$ git log
