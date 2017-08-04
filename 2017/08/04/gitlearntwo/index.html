@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="远程仓库这里还是用github作为自己的远程仓库，首先要有一个github账号，然后在自己的账号下创建一个Repository，具体怎样注册github，怎样创建Repository不在此详说了。 1. 生成SSH公钥想将本地的git仓库与远程github仓库建立关联，需先生成你电脑的SSH key，这样github才知道是否是你提交的代码    $ cd .ssh    $ ls    id_r">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git的使用（二）">
+<meta property="og:url" content="amazingcoder.github.io/2017/08/04/gitlearntwo/index.html">
+<meta property="og:site_name" content="coderTalking">
+<meta property="og:description" content="远程仓库这里还是用github作为自己的远程仓库，首先要有一个github账号，然后在自己的账号下创建一个Repository，具体怎样注册github，怎样创建Repository不在此详说了。 1. 生成SSH公钥想将本地的git仓库与远程github仓库建立关联，需先生成你电脑的SSH key，这样github才知道是否是你提交的代码    $ cd .ssh    $ ls    id_r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-04T07:33:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git的使用（二）">
+<meta name="twitter:description" content="远程仓库这里还是用github作为自己的远程仓库，首先要有一个github账号，然后在自己的账号下创建一个Repository，具体怎样注册github，怎样创建Repository不在此详说了。 1. 生成SSH公钥想将本地的git仓库与远程github仓库建立关联，需先生成你电脑的SSH key，这样github才知道是否是你提交的代码    $ cd .ssh    $ ls    id_r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="amazingcoder.github.io/2017/08/04/gitlearntwo/"/>
+
+
+
+
+
+  <title>git的使用（二） | coderTalking</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coderTalking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="amazingcoder.github.io/2017/08/04/gitlearntwo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="amazingcoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderTalking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git的使用（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T15:31:12+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/04/gitlearntwo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/04/gitlearntwo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>这里还是用github作为自己的远程仓库，首先要有一个github账号，然后在自己的账号下创建一个Repository，具体怎样注册github，怎样创建Repository不在此详说了。</p>
+<h6 id="1-生成SSH公钥"><a href="#1-生成SSH公钥" class="headerlink" title="1. 生成SSH公钥"></a>1. 生成SSH公钥</h6><p>想将本地的git仓库与远程github仓库建立关联，需先生成你电脑的SSH key，这样github才知道是否是你提交的代码<br>    $ cd .ssh<br>    $ ls<br>    id_rsa        id_rsa.pub    known_hosts<br>可以先看看自己是否生成过SSH公钥，即是否有id_rsa和id_rsa.pub文件，我这已经有了无需创建。</p>
+<pre><code>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+</code></pre><p>不出意外，执行完以上命令可以看到上面说的两个文件了</p>
+<pre><code>$ cat id_rsa.pub
+ssh-rsa AAadfsadsafC1yc2EadfsdsfdsAQABAAABAQDQmRe/    K0gzKrVsdsKadfsdreXW0cfw0QCig5FNqSn1aRaEoCtO9UzDLEwm7+Q    +afmaTU5K+                                        +2DQvEgmxBnRsddsfacpJ3Si7SA5Bzq92Pu8hDYUl8gk0Zc0Pt2us/    Tn9PGuhEYQ7IFwfpD4o+qRtT/ADGwD                +2SYVztorvpRmsdfdsaZGaSHBNbDPHFXf0CUnx3zVeb3Dcm7S3i2sGKz708FR5VV1qfPVHa18KagqOe7ufZ7H6xKHSDGDAH4ZeISykzRoANsadfdsqDunQdwzWjEkF8mo4VUT6fQ2H+0SCNIeCt/1gyP8QY2SYSHgj0rfVku18m1+Hd youremail@example.com
+</code></pre><p>生成的公钥串大概就涨上面这样（我随便写的，格式差不多）,成功之后打开你的github 我的下面的Settings–SSH and GPG keys选项下面,点击New SSH key按钮，将你刚刚生成的公钥串填入确定即可。</p>
+<h6 id="2-关联远程仓库"><a href="#2-关联远程仓库" class="headerlink" title="2. 关联远程仓库"></a>2. 关联远程仓库</h6><p>我现在本地有一个git仓库了，关于怎么创建本地仓库等问题，可以看我上一篇文章<a href="http://codertalking.cn/2017/07/28/gitlearnnoteone/" target="_blank" rel="external">git的使用（一）</a>,需要将本地仓库与远程仓库建立关联，比如你要将自己的牛皮项目开源，可以这样操作：</p>
+<pre><code>$ git remote add origin git@github.com:用户名/gitlearn.git
+</code></pre><p>如果这时没有任何提示说明关联成功了。</p>
+<h6 id="3-推送本地仓库项目到远程仓库"><a href="#3-推送本地仓库项目到远程仓库" class="headerlink" title="3. 推送本地仓库项目到远程仓库"></a>3. 推送本地仓库项目到远程仓库</h6><pre><code>$ git push origin master
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (6/6), 412 bytes | 0 bytes/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To git@github.com:liuhaobj/gitlearntest.git
+ * [new branch]      master -&gt; master
+</code></pre><p> 这时已经将本地的项目推送到了远程。刷新github的仓库界面能看到git本地仓库的readme.txt了。</p>
+<h6 id="4-拉取-抓取远程仓库修改"><a href="#4-拉取-抓取远程仓库修改" class="headerlink" title="4. 拉取/抓取远程仓库修改"></a>4. 拉取/抓取远程仓库修改</h6><p>现在我在github添加一个新文件modify.txt,然后执行下面的命令：</p>
+<pre><code>$ git fetch origin master
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:liuhaobj/gitlearntest
+ * branch            master     -&gt; FETCH_HEAD
+   306ecb9..4aaf6ee  master     -&gt; origin/master
+</code></pre><p>这时我执行的拉取操作已经成功了，但是当你去gittest文件夹内并未发现modify.txt文件，这就是拉取fetch和抓取pull的区别，fetch并不会执行自动合并远程修改的内容到本地仓库，这时我再执行pull命令</p>
+<pre><code>$ git pull origin master
+From github.com:liuhaobj/gitlearntest
+* branch            master     -&gt; FETCH_HEAD
+Updating 306ecb9..4aaf6ee
+Fast-forward
+ modify.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 modify.txt
+</code></pre><p>这时再去gittest下就能看到modify.txt文件了.</p>
+<h6 id="5-远程仓库其他操作"><a href="#5-远程仓库其他操作" class="headerlink" title="5. 远程仓库其他操作"></a>5. 远程仓库其他操作</h6><ul>
+<li>git remote show [origin],查看远程仓库详细信息</li>
+<li>git remote rename [原分支名][新分支名] 给分支重命名</li>
+<li>git remote rm [branch name] 移除分支</li>
+<li>git remote 查看远程仓库名，[-v]远程仓库Url</li>
+</ul>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>git的分支管理优点和作用这种理论知识不在此多讲，零基础同学可转向<a href="https://www.liaoxuefeng.com/" target="_blank" rel="external">廖雪峰的git教程</a>,直接奔命令行了。</p>
+<h6 id="1-创建新分支Ver01"><a href="#1-创建新分支Ver01" class="headerlink" title="1. 创建新分支Ver01"></a>1. 创建新分支Ver01</h6><pre><code>$ git checkout -b ver01
+Switched to a new branch &apos;ver01&apos;
+$ git branch
+  master
+* ver01
+</code></pre><p>可以看到ver01创建成功了，并且当前分支在ver01分支上,-b相当于git branch ver01和git checkout ver01两行命令.这时你可以在ver01分支上工作了。一个功能在ver01上开发完成后可能会合并到master分支上。</p>
+<h6 id="2-分支合并"><a href="#2-分支合并" class="headerlink" title="2. 分支合并"></a>2. 分支合并</h6><p>现在我在ver01分支上对readme.txt文件添加了一句话,提交并切换到master分支上</p>
+<pre><code>$ git add readme.txt
+$ git commit -m &quot;ver01作了修改&quot;
+[ver01 0ffbb8a] ver01作了修改
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+$ git checkout master
+Switched to branch &apos;master&apos;
+</code></pre><p>此时去gittest文件夹发现readme.txt是没有修改的,因为我们只对ver01分支的readme文件做了修改。下面将ver01分支合并到mster分支上：</p>
+<pre><code>$ git merge ver01
+Updating 4aaf6ee..0ffbb8a
+Fast-forward
+ readme.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+</code></pre><p>这是发现readme.txt文件是修改过的文件，分支合并成功了。</p>
+<h6 id="3-删除分支"><a href="#3-删除分支" class="headerlink" title="3. 删除分支"></a>3. 删除分支</h6><pre><code>$ git branch -d ver01
+Deleted branch ver01 (was 0ffbb8a).
+$ git branch
+* master
+</code></pre><p>这时分支ver01被成功删除了。如果此时ver01分支有新功能开发完成后为合并到master分支此时删除会失败，如果想强制删除可用 git branch -D ver01命令。</p>
+<h6 id="4-分支合并冲突问题"><a href="#4-分支合并冲突问题" class="headerlink" title="4. 分支合并冲突问题"></a>4. 分支合并冲突问题</h6><p>当多人开发时经常会遇到合并冲突问题，比如这样:新建ver02分支，修改readme.txt文件提交，切换到master分支，同样修改readme.txt文件，然后合并ver02分支到master分支</p>
+<pre><code>$ git merge ver02
+Auto-merging readme.txt
+CONFLICT (content): Merge conflict in readme.txt
+Automatic merge failed; fix conflicts and then commit the     result.
+</code></pre><p>这时会提示我们合并失败，打开readme.txt文件，如下图</p>
+<center><a href="http://otzihtq40.bkt.clouddn.com/git2-1-1.png" target="_blank" rel="external"></a></center><br>这时需要手动解决冲突,删除readme.txt文件你不想要的内容，然后提交，这时就合并成功了。可以通过git log –graph –pretty=oneline –abbrev-commit命令查看分支合并记录<br><br>    $ git log –graph –pretty=oneline –abbrev-commit<br>    <em>   65182aa 解决冲突<br>    |\<br>    | </em> c83c84f 我在ver02分支上修改了readme.txt<br>    <em> | f611601 我在master分支上修改了readme.txt<br>    |/
+    </em> 0ffbb8a ver01作了修改<br>    <em> 4aaf6ee create modify.txt
+    </em> 306ecb9 def commit<br>    <em> b50ea8f abc commit<br>###### 5. 存储当前修改git stash<br>如果此时正在开发一个功能，代码写了一半，领导现在让你用另一个版本打个包或者现在发现了一个bug需要新建个hotfix分支修复bug，但此时你正在开发的功能还没完成，又不想提交到git仓库，这是就可以用到stash命令把当前修改暂时存储起来。<br><br>    git stash<br>    Saved working directory and index state WIP on master:     65182aa 解决冲突<br>    HEAD is now at 65182aa 解决冲突<br><br>    $ git status<br>    On branch master<br>    nothing to commit, working directory clean<br>我先修改了readme.txt文件，然后执行stash，通过status发现当前分支已经没有可提交修改了。这是再新建一个hotfix分支修改bug或者打包等工作。<br><br>    $ git checkout -b hotfix<br>    Switched to a new branch ‘hotfix’<br><br>    $ git branch
+    </em> hotfix<br>      master<br>      ver02<br>这时我在hotfix分支修改readme.txt文件并提交<br><br>    $ git status<br>    On branch hotfix<br>    Changes not staged for commit:<br>    (use “git add <file>…” to update what will be committed)<br>    (use “git checkout – <file>…” to discard changes in     working     directory)<br><br>    modified:   readme.txt<br><br>    no changes added to commit (use “git add” and/or “git commit     -a”)<br><br>    $ git add readme.txt<br>    $ git commit -m “我在hotfix修改了一个bug”<br>    [hotfix 4fb6dfe] 我在hotfix修改了一个bug<br>     1 file changed, 1 insertion(+)<br>    $ git status<br>    On branch hotfix<br>    nothing to commit, working directory clean<br>至此 hotfix的bug修复完成，然后切换到master分支继续之前的功能开发,并用git stash pop命令恢复之前的修改，并删除存储的内容<br><br>    $ git checkout master<br>    Switched to branch ‘master’<br><br>    $ git status<br>    On branch master<br>    nothing to commit, working directory clean<br><br>    $ git stash list<br>    stash@{0}: WIP on master: 65182aa 解决冲突<br><br>    $ git stash pop<br>    On branch master<br>    Changes not staged for commit:<br>      (use “git add <file>…” to update what will be committed)<br>      (use “git checkout – <file>…” to discard changes in     working directory)<br><br>    modified:   readme.txt<br><br>    no changes added to commit (use “git add” and/or “git commit     -a”)<br>    Dropped refs/stash@{0}             (086708f213d325e50451d1676185de6b7b7a42d5)<br><br>git stash list查看保存的记录，你可以多次保存，然后恢复指定的保存版本，也可以用git stash apply恢复，但不会删除存储位置的内容,需要再次调用git stash drop进行删除。<br><br>##远程分支<br>######1. 推送本地分支到远程git push origin [branchname]<br>先创建一个本地分支ver03，修改readme.txt内容提交，然后推送到远程分支，如下：<br><br>    $ git checkout -b ver03<br>    Switched to a new branch ‘ver03’<br>    $ git add readme.txt<br>    $ git commit -m “ver03 分支”<br>    [ver03 680e5f4] ver03 分支<br>     1 file changed, 1 insertion(+)<br><br>    $ git push origin ver03<br>    Counting objects: 15, done.<br>    Delta compression using up to 4 threads.<br>    Compressing objects: 100% (14/14), done.<br>    Writing objects: 100% (15/15), 1.50 KiB | 0 bytes/s, done.<br>    Total 15 (delta 2), reused 0 (delta 0)<br>    remote: Resolving deltas: 100% (2/2), done.<br>    To git@github.com:liuhaobj/gitlearntest.git<br>     * [new branch]      ver03 -&gt; ver03<br> 此时可以去自己的github仓库看到ver03分支了，如下图：<br> <center><a href="http://otzihtq40.bkt.clouddn.com/git2-2-1.png" target="_blank" rel="external"></a></center>
+
+<h6 id="2-跟踪远程分支"><a href="#2-跟踪远程分支" class="headerlink" title="2. 跟踪远程分支"></a>2. 跟踪远程分支</h6><p>如果你的git版本小于1.6.2，可以用这个命令git checkout -b [brnach name] [remote name]/[remote branch name],可以在本地生成一个跟踪远程分支的本地分支</p>
+<p>如果你的git大于1.6.2版本，可以直接用以下命令</p>
+<pre><code>$ git checkout --track origin/ver04
+Branch ver04 set up to track remote branch refs/remotes/    origin/ver04.
+Switched to a new branch &quot;ver04&quot;
+</code></pre><p>此时在本地会生成一个新的ver04分支，当然你想用不同于远程的分支名，可以用第一种方法生成。</p>
+<h6 id="3-删除远程分支-git-push-remote-name-–delete-branch-name"><a href="#3-删除远程分支-git-push-remote-name-–delete-branch-name" class="headerlink" title="3. 删除远程分支 git push [remote name] –delete [branch name]"></a>3. 删除远程分支 git push [remote name] –delete [branch name]</h6><pre><code>$ git push origin --delete ver03
+To git@github.com:liuhaobj/gitlearntest.git
+ - [deleted]         ver03
+</code></pre><p>这是github上的ver03分支就被删除了。</p>
+<h2 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h2><p>当某一个版本节点特别重要时，比如需要上线的版本，这时你可以给这个版本打一个标签；git的标签有两种轻量标签（lightweight）与附注标签（annotated）;所谓轻量标签就是你某次提交的一个引用，而附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的，它可以包含你的电子邮箱，日期等打标签者的信息。</p>
+<h6 id="轻量标签"><a href="#轻量标签" class="headerlink" title="轻量标签"></a>轻量标签</h6><pre><code>$ git status
+On branch ver03
+nothing to commit, working directory clean
+$ git tag v1.0.0
+$ git tag
+v1.0.0
+</code></pre><p>如上我给ver03分支打了一个名为v1.0.0的轻量标签，并可以用git tag查看当前标签列表,这时你可以用git show [tag name]查看此标签版本信息</p>
+<h6 id="附注标签"><a href="#附注标签" class="headerlink" title="附注标签"></a>附注标签</h6><pre><code>$ git checkout hotfix
+Switched to branch &apos;hotfix&apos;
+$ git tag -a v1.1.0 -m &quot;this is hotfix version v1.1.0&quot;
+$ git tag
+v1.0.0
+v1.1.0
+
+$ git show v1.1.0
+tag v1.1.0
+Tagger: xxxxxx &lt;xxxxxxxxx@163.com&gt;
+Date:   Thu Aug 3 09:54:04 2017 +0800
+
+this is hotfix version v1.1.0
+
+commit 4fb6dfe3449e8b2175a8f992508c02aa5846d669
+Author: liuhao &lt;15811481720@163.com&gt;
+Date:   Wed Aug 2 14:48:22 2017 +0800
+
+我在hotfix修改了一个bug
+
+diff --git a/readme.txt b/readme.txt
+index 2f71757..1afbee9 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -2,3 +2,4 @@ def
+  我在ver01分支上作了修改
+  我在master分支上修改了
+
++我在hotfix分支修改了一个bug
+</code></pre><p>可以看到我给hotfix分支打了一个v1.1.0的标签，并给了一个标签信息（-m后面内容），通过git show [tag name]可以查看v1.1.0版本的相关信息</p>
+<h6 id="历史版本打标签"><a href="#历史版本打标签" class="headerlink" title="历史版本打标签"></a>历史版本打标签</h6><pre><code>$ git log --pretty=oneline
+</code></pre><p>查看历史版本信息</p>
+<pre><code>$ git tag -a v1.2 ab23cdd90
+</code></pre><p>给commit id为 ab23cdd90开头的版本打tag</p>
+<h6 id="共享标签"><a href="#共享标签" class="headerlink" title="共享标签"></a>共享标签</h6><pre><code>$ git push origin v1.0.0
+</code></pre><p>推送v1.0.0版本到远程仓库</p>
+<pre><code>$ git push origin --tags
+</code></pre><p>推送本地仓库所有远程仓库没有的标签</p>
+<p>本节git使用就介绍到这，未完待续。。。</p>
+</file></file></file></file>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/28/gitlearnnoteone/" rel="next" title="git使用（一）">
+                <i class="fa fa-chevron-left"></i> git使用（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="amazingcoder" />
+          <p class="site-author-name" itemprop="name">amazingcoder</p>
+           
+              <p class="site-description motion-element" itemprop="description">最怕你一生碌碌无为，还安慰自己平凡可贵</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库"><span class="nav-number">1.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-生成SSH公钥"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1. 生成SSH公钥</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-关联远程仓库"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2. 关联远程仓库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-推送本地仓库项目到远程仓库"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3. 推送本地仓库项目到远程仓库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-拉取-抓取远程仓库修改"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">4. 拉取/抓取远程仓库修改</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-远程仓库其他操作"><span class="nav-number">1.0.0.0.5.</span> <span class="nav-text">5. 远程仓库其他操作</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">2.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-创建新分支Ver01"><span class="nav-number">2.0.0.0.1.</span> <span class="nav-text">1. 创建新分支Ver01</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-分支合并"><span class="nav-number">2.0.0.0.2.</span> <span class="nav-text">2. 分支合并</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-删除分支"><span class="nav-number">2.0.0.0.3.</span> <span class="nav-text">3. 删除分支</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-分支合并冲突问题"><span class="nav-number">2.0.0.0.4.</span> <span class="nav-text">4. 分支合并冲突问题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-跟踪远程分支"><span class="nav-number">2.0.0.0.5.</span> <span class="nav-text">2. 跟踪远程分支</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-删除远程分支-git-push-remote-name-–delete-branch-name"><span class="nav-number">2.0.0.0.6.</span> <span class="nav-text">3. 删除远程分支 git push [remote name] –delete [branch name]</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打标签"><span class="nav-number">3.</span> <span class="nav-text">打标签</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#轻量标签"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">轻量标签</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#附注标签"><span class="nav-number">3.0.0.0.2.</span> <span class="nav-text">附注标签</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#历史版本打标签"><span class="nav-number">3.0.0.0.3.</span> <span class="nav-text">历史版本打标签</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#共享标签"><span class="nav-number">3.0.0.0.4.</span> <span class="nav-text">共享标签</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">amazingcoder</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'amazingcoder.github.io/2017/08/04/gitlearntwo/';
+          this.page.identifier = '2017/08/04/gitlearntwo/';
+          this.page.title = 'git的使用（二）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
